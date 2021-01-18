@@ -1,0 +1,7 @@
+<div class="products-container">
+    <app-product
+        *ngFor="let product of products"
+        [product]="product"
+        (buy)="onBuy($event)">
+    </app-product>
+</div>
