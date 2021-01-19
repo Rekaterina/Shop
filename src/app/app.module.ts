@@ -12,7 +12,7 @@ import { CartItemComponent } from './cart/components/cart-item/cart-item.compone
 
 @NgModule({
     declarations: [AppComponent, FirstComponent, ProductComponent, ProductListComponent, CartListComponent, CartItemComponent],
-    imports: [BrowserModule, AppRoutingModule, CommonModule],
+    imports: [BrowserModule, AppRoutingModule],
     providers: [],
     bootstrap: [AppComponent],
 })
