@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 
 import { IProductItem } from '../../models/product.model';
 
@@ -6,6 +6,7 @@ import { IProductItem } from '../../models/product.model';
     selector: 'app-product',
     templateUrl: './product.component.html',
     styleUrls: ['./product.component.css'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProductComponent {
     @Input() product: IProductItem;

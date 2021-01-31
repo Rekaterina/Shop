@@ -1,8 +1,37 @@
 # Task1 - Introduction
-- Create `FirstComponent` with some properties
-- Create `ProductComponent` with button `Buy`
-- Create `ProductListComponent` with `*ngFor`
-- Create `ProductsService` with method `getProducts()`
-- Create `ProductModel` with `interface`
-- Create `CartListComponent` with `*ngIf + else`, `*ngFor + trackBy`, with button `Remove all`
-- Create `CartService` with methods `addCartProduct()`, `getCartProducts()`,  `removeAllProducts()`
+### Added
+- `FirstComponent` with some properties
+- `ProductComponent` with button `Buy`
+- `ProductListComponent` with `*ngFor`
+- `ProductsService` with method `getProducts()`
+- `ProductModel` with `interface`
+- `CartListComponent` with `*ngIf + else`, `*ngFor + trackBy`, with button `Remove all`
+- `CartItemComponent`
+- `CartService` with methods `addCartProduct()`, `getCartProducts()`,  `removeAllProducts()`
+
+# Task2 - Components
+### Added
+- `CartModule`
+- `SharedModule`
+- `ProductsModule`
+- `HighlightDirective` with `@HostBinding`, `@HostListener`
+
+### Modified
+- `AppModule`
+- `CartService`, added `updateCartData()` with counting `totalQuantity` and `totalSum`
+- `CartListComponent`, added displaying `totalQuantity` and `totalSum`
+- `CartItemComponent`, added `onRemove()`, `onDecreaseQuantity()`, `onIncreaseQuantity()` methods
+- `AppComponent`, added `#appTitle`
+
+# Task3 - Services and DI
+### Added
+- `ConfigOptionsService`
+- `ConstantsService` using `useValue`
+- `GeneratorService` and function `GeneratorFactory`
+- `LocalStorageServic` using `useClass`
+- `BorderChangeDirective`, used in `ProductComponent`
+
+### Modified
+- `CartService`, added `cartData` with totalQuantity and totalSum, added `increaseQuantity()`, `decreaseQuantity()` methods with `changeQuantity()`, added `removeProduct()`
+- `FirstComponent`, injected services
+
