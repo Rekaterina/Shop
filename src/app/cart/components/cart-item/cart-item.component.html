@@ -1,3 +1,19 @@
-<div class="cart-item-container">
+<div appHighlight class="cart-item-container">
     <span>{{ cartProduct.name }}</span>
+    <div class="cart-item-control">
+        <button 
+            class="minus"
+            (click)="onDecreaseQuantity(cartProduct)"
+        >-</button>
+        <span class="count">{{ cartProduct.quantity }}</span>
+        <button 
+            class="plus"
+            (click)="onIncreaseQuantity(cartProduct)"
+        >+</button>
+        <button 
+            type="button" 
+            class="btn btn-secondary"
+            (click)="onRemove(cartProduct)"
+        >Remove</button>
+    </div>
 </div>

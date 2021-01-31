@@ -20,6 +20,5 @@ export class ProductListComponent implements OnInit {
 
     onBuy(product: IProductItem): void {
         this.cartService.addCartProduct(product);
-        console.log(product, 'is added to cart');
     }
 }

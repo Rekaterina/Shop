@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
-import { IProductItem } from '../../../products/models/product.model';
+import { ICartData } from '../../models/cart-data.model';
+import { ICartProductItem } from '../../models/cart-product.model';
 import { CartService } from '../../services/cart.service';
 
 @Component({
@@ -9,19 +10,33 @@ import { CartService } from '../../services/cart.service';
     styleUrls: ['./cart-list.component.css'],
 })
 export class CartListComponent implements OnInit {
-    cartProducts: Array<IProductItem> = [];
+    cartProducts: Array<ICartProductItem>;
+    cartData: ICartData;
 
     constructor(public cartService: CartService) {}
 
     ngOnInit(): void {
         this.cartProducts = this.cartService.getCartProducts();
+        this.cartData = this.cartService.getCartData();
     }
 
     onRemoveAll(): void {
         this.cartService.removeAllProducts();
     }
 
-    trackByCartProducts(index: number, cartProduct: IProductItem): number {
+    onRemove(cartProduct: ICartProductItem): void {
+        this.cartService.removeProduct(cartProduct);
+    }
+
+    onDecreaseQuantity(cartProduct: ICartProductItem): void {
+        this.cartService.decreaseQuantity(cartProduct);
+    }
+
+    onIncreaseQuantity(cartProduct: ICartProductItem): void {
+        this.cartService.increaseQuantity(cartProduct);
+    }
+
+    trackByCartProducts(index: number, cartProduct: ICartProductItem): number {
         return cartProduct.id;
     }
 }

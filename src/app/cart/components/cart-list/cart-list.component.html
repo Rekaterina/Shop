@@ -6,7 +6,10 @@
         <app-cart-item
             *ngFor="let cartProduct of cartProducts; trackBy: trackByCartProducts"
             [cartProduct]="cartProduct"
-        ></app-cart-item>
+            (remove)="onRemove($event)"
+            (decreaseQuantity)="onDecreaseQuantity($event)"
+            (increaseQuantity)="onIncreaseQuantity($event)">
+        </app-cart-item>
         <button type="button" class="btn btn-secondary" (click)="onRemoveAll()">Remove all</button>
     </div>
     <ng-template #elseBlock>
@@ -14,4 +17,8 @@
             <div class="card-title">Cart is empty</div>
         </div>
     </ng-template>
+    <div class="info-container">
+        <span class="total">Total: {{ cartData.totalQuantity }}</span>
+        <span class="price">Price: {{ cartData.totalSum | currency }}</span>       
+    </div>
 </div>
