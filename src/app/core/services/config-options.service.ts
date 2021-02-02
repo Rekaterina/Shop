@@ -13,10 +13,13 @@ export class ConfigOptionsService {
     }
 
     setConfigOptions(options: IConfig): void {
-        for (const key in options) {
-            if (options.hasOwnProperty(key)) {
-                (this.configOptions as Record<string, any>)[key] = (options as Record<string, any>)[key];
-            }
-        }
+      // по моему так проще или нет?
+        this.configOptions = {...this.configOptions, ...options};
+
+        // for (const key in options) {
+        //     if (options.hasOwnProperty(key)) {
+        //         (this.configOptions as Record<string, any>)[key] = (options as Record<string, any>)[key];
+        //     }
+        // }
     }
 }
