@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Observable, of } from 'rxjs';
 
 import { IProductItem } from '../models/product.model';
 
@@ -45,7 +46,7 @@ export class ProductsService {
         },
     ];
 
-    getProducts(): Array<IProductItem> {
-        return this.dataProducts;
+    getProducts(): Observable<IProductItem[]> {
+        return of(this.dataProducts);
     }
 }

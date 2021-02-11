@@ -2,7 +2,7 @@ import { Inject, Injectable } from '@angular/core';
 
 import { IProductItem } from '../../products/models/product.model';
 import { LocalStorageService } from '../../core/services/local-storage.service';
-import { STORAGE } from '../../shared/shared.module';
+import { STORAGE } from '../../core/core.module';
 import { ICartData } from '../models/cart-data.model';
 import { ICartProductItem } from '../models/cart-product.model';
 

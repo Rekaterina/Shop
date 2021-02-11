@@ -3,11 +3,9 @@ import { Component, Inject, OnInit, Optional } from '@angular/core';
 import { ConfigOptionsService } from '../../../core/services/config-options.service';
 import { generatedString5, GeneratorFactory } from '../../../core/generator.factory';
 import { IConstants } from '../../../core/models/constants.model';
-import { constantsToken } from '../../../core/services/constant.service';
+import { ConstantService, constantsToken } from '../../../core/services/constant.service';
 import { GeneratorService } from '../../../core/services/generator';
 import { Category } from '../../models/category.model';
-import { LocalStorageService } from '../../../core/services/local-storage.service';
-import { STORAGE } from '../../../shared/shared.module';
 
 @Component({
     selector: 'app-first',
@@ -15,6 +13,7 @@ import { STORAGE } from '../../../shared/shared.module';
     providers: [
         GeneratorService,
         { provide: generatedString5, useFactory: GeneratorFactory(5), deps: [GeneratorService] },
+        { provide: constantsToken, useValue: ConstantService },
     ],
 })
 export class FirstComponent implements OnInit {

@@ -1,10 +1,18 @@
 <div class="cart-container card">
     <div class="card-header">
         <h5 class="card-title">Cart</h5>
+        <div class="sorting-container">
+            Sort by <select [(ngModel)]="orderBy">
+                        <option  *ngFor="let key of keys" [value]="key">
+                            {{key}}
+                        </option>
+                    </select>
+                    Asc <input [(ngModel)]="isAsc" type="checkbox">
+        </div>
     </div>
     <div class="card-body" *ngIf="cartProducts.length; else elseBlock">
         <app-cart-item
-            *ngFor="let cartProduct of cartProducts; trackBy: trackByCartProducts"
+            *ngFor="let cartProduct of cartProducts |  orderby:orderBy:isAsc; trackBy: trackByCartProducts"
             [cartProduct]="cartProduct"
             (remove)="onRemove($event)"
             (decreaseQuantity)="onDecreaseQuantity($event)"
