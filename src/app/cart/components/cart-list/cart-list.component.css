@@ -16,3 +16,8 @@
     min-width: 300px;
     max-width: 520px;
 }
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+}

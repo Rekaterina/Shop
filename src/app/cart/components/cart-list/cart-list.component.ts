@@ -12,6 +12,9 @@ import { CartService } from '../../services/cart.service';
 export class CartListComponent implements OnInit {
     cartProducts: Array<ICartProductItem>;
     cartData: ICartData;
+    orderBy = 'price';
+    isAsc = false;
+    keys = ['price', 'name', 'quantity'];
 
     constructor(public cartService: CartService) {}
 

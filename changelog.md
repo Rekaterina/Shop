@@ -35,3 +35,16 @@
 - `CartService`, added `cartData` with totalQuantity and totalSum, added `increaseQuantity()`, `decreaseQuantity()` methods with `changeQuantity()`, added `removeProduct()`
 - `FirstComponent`, injected services
 
+# Task3 - Pipes
+### Modified
+- `ProductService`, method `getProducts()`
+- `ProductListComponent`, added `async` pipe
+- `SharedModule`
+- `ProductComponent`, added `uppercase`, `currency`, `yesno` pipes
+- `CartListComponent`, added `orderby` pipe
+
+### Added
+- `OrderByPipe`
+- `YesNoPipe`
+- `CoreModule` to provide `LocalStorageService`
+

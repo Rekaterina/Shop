@@ -2,11 +2,11 @@
     <div class="card-body">
         <h5 class="card-title">{{ product.name }}</h5>
         <ul>
-            <li><span>Category:</span> {{ product.category}}</li>
+            <li><span>Category:</span> {{ product.category | uppercase}}</li>
             <li><span>Author:</span> {{ product.author }}</li>
             <li><span>Description:</span> {{ product.description }}</li>
-            <li><span>Price:</span> {{ product.price }}$</li>
-            <li><span>Available:</span> {{ product.isAvailable}}</li>
+            <li><span>Price:</span> {{ product.price | currency }} </li>
+            <li><span>Available:</span> {{ product.isAvailable  | yesno}}</li>
         </ul>
         <button 
             type="button"
