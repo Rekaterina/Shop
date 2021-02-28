@@ -21,3 +21,9 @@
     display: flex;
     justify-content: space-between;
 }
+
+.buttons-container {
+    display: flex;
+    align-self: center;
+    justify-content: space-between;
+}

@@ -1,3 +1,9 @@
+<button 
+    *ngIf="isShowAddProductButton" 
+    type="button" class="btn btn-primary" 
+    (click)="onAddProduct()">
+        Add product
+</button> 
 <div class="products-container">
     <app-product
         *ngFor="let product of products | async"

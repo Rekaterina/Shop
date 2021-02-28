@@ -1,8 +1,23 @@
 <div class="app-wrapper">
     <h1 #appTitle></h1>
-    <app-first></app-first>
-    <div class="cart-list-container">
-        <app-cart-list></app-cart-list>
-    </div>
-    <app-product-list></app-product-list>
+    <!-- <app-first></app-first> -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item" routerLinkActive="active">
+                    <a class="nav-link" routerLink="/products-list">Books</a>
+                </li>
+                <li class="nav-item" routerLinkActive="active">
+                    <a class="nav-link" routerLink="/cart">Cart</a>
+                </li>
+                <li class="nav-item" routerLinkActive="active">
+                    <a class="nav-link" routerLink="/admin">Admin</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</div>
+
+<div class="container">
+    <router-outlet></router-outlet>
 </div>

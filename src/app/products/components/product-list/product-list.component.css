@@ -3,3 +3,7 @@
     display: flex;
     flex-wrap: wrap;
 }
+
+.btn {
+    margin: 20px;
+}

@@ -8,10 +8,11 @@ import { ProductsModule } from './products/products.module';
 import { SharedModule } from './shared/shared.module';
 import { FirstComponent } from './first/components/first/first.component';
 import { CoreModule } from './core/core.module';
+import { LayoutModule } from './layout/layout.module';
 
 @NgModule({
     declarations: [AppComponent, FirstComponent],
-    imports: [BrowserModule, AppRoutingModule, CartModule, ProductsModule, SharedModule, CoreModule],
+    imports: [BrowserModule, CartModule, ProductsModule, SharedModule, CoreModule, LayoutModule, AppRoutingModule],
     bootstrap: [AppComponent],
 })
 export class AppModule {}

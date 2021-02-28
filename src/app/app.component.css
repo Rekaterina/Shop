@@ -6,6 +6,11 @@ h1 {
     color: rgb(29, 107, 172);
 }
 
-.cart-list-container {
-    margin: 2% 0;
+.navbar {
+    padding: 0;
+}
+
+.active {
+    font-weight: bold;
+    border: 2px outset rgb(29, 107, 172, 0.5);
 }
