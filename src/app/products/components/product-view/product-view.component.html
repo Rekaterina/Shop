@@ -1,34 +1,23 @@
-<div appBorderChange="royalblue" class="card">
-    <div class="card-body">
-        <h5 class="card-title">{{ product.name }}</h5>
+<div class="card">
+    <div class="card-body" *ngIf="product">
+        <h5 class="card-title">{{ product.name | uppercase}}</h5>
         <ul>
             <li><span>Category:</span> {{ product.category | uppercase}}</li>
             <li><span>Author:</span> {{ product.author }}</li>
             <li><span>Description:</span> {{ product.description }}</li>
             <li><span>Price:</span> {{ product.price | currency }} </li>
             <li><span>Available:</span> {{ product.isAvailable  | yesno}}</li>
+            <img [src]="product.image" [alt]="product.name">
         </ul>
-        <div class="product-controls">
-            <button
+        <div class="buttons-container">
+            <button 
                 type="button"
                 class="btn btn-primary"
                 [disabled]="!product.isAvailable"
                 (click)="onBuy(product)">
                     Buy
             </button>
-            <button 
-                type="button"
-                class="btn btn-secondary"
-                (click)="onSeeProductDetails(product.id)">
-                    More details
-            </button>
-            <button
-                *ngIf="adminService.isAdmin()" 
-                type="button"
-                class="btn btn-secondary"
-                (click)="onEdit(product.id)">
-                    Edit
-            </button>
+            <button type="button" class="btn btn-secondary" (click)="onBack()">Back</button>
         </div>
     </div>
 </div>

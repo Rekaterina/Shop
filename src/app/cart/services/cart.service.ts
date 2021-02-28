@@ -60,6 +60,10 @@ export class CartService {
         this.updateCartData();
     }
 
+    isEmptyCart(): boolean {
+        return this.cartProducts.length === 0;
+    }
+
     private changeQuantity(cartProduct: ICartProductItem, quantity: number, isIncrease: boolean): void {
         const itemIndex = this.getCartProductIndex(cartProduct);
         if (isIncrease) {

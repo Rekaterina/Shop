@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { ICartData } from '../../models/cart-data.model';
 import { ICartProductItem } from '../../models/cart-product.model';
@@ -16,7 +17,7 @@ export class CartListComponent implements OnInit {
     isAsc = false;
     keys = ['price', 'name', 'quantity'];
 
-    constructor(public cartService: CartService) {}
+    constructor(public cartService: CartService, private router: Router) {}
 
     ngOnInit(): void {
         this.cartProducts = this.cartService.getCartProducts();
@@ -41,5 +42,9 @@ export class CartListComponent implements OnInit {
 
     trackByCartProducts(index: number, cartProduct: ICartProductItem): number {
         return cartProduct.id;
+    }
+
+    onOrder(): void {
+        this.router.navigate(['/order']);
     }
 }

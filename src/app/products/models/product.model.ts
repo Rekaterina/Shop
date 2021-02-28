@@ -6,4 +6,5 @@ export interface IProductItem {
     description: string;
     price: number;
     isAvailable: boolean;
+    image: string;
 }

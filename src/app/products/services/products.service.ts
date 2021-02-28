@@ -16,6 +16,7 @@ export class ProductsService {
             description: 'The novels chronicle the lives of a young wizard, Harry Potter, and his friends.',
             price: 10,
             isAvailable: true,
+            image: '../../../assets/images/id0.jpg',
         },
         {
             id: 1,
@@ -25,6 +26,7 @@ export class ProductsService {
             description: 'The fantastical speculative fiction book consists of six interconnected nested stories.',
             price: 15,
             isAvailable: true,
+            image: '../../../assets/images/id1.jpg',
         },
         {
             id: 2,
@@ -34,6 +36,7 @@ export class ProductsService {
             description: 'The novel about a young boy growing up along the Mississippi River.',
             price: 12,
             isAvailable: true,
+            image: '../../../assets/images/id2.jpg',
         },
         {
             id: 3,
@@ -43,10 +46,16 @@ export class ProductsService {
             description: 'The fairy tale about a young girl and a Big Bad Wolf.',
             price: 8,
             isAvailable: false,
+            image: '../../../assets/images/id3.jpg',
         },
     ];
 
     getProducts(): Observable<IProductItem[]> {
         return of(this.dataProducts);
+    }
+
+    getProduct(id: number | string): IProductItem | null {
+        const foundedProduct = this.dataProducts.find((product) => product.id === +id);
+        return foundedProduct ? foundedProduct : null;
     }
 }
