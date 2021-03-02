@@ -16,7 +16,8 @@ export class ProductComponent {
 
     @Output() buy: EventEmitter<IProductItem> = new EventEmitter<IProductItem>();
 
-    constructor(public productsService: ProductsService, private router: Router, public adminService: AdminService) {}
+    // лишняя зависимость?
+    constructor(/*public productsService: ProductsService, */ private router: Router, public adminService: AdminService) {}
 
     onBuy(product: IProductItem): void {
         this.buy.emit(product);
