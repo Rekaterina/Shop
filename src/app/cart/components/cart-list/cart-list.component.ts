@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { ICartData } from '../../models/cart-data.model';
+import { AppSettingsService } from '../../../core/services/app-settings.service';
 import { ICartProductItem } from '../../models/cart-product.model';
+import { CartObservableService } from '../../services/cart-observable.service';
 import { CartService } from '../../services/cart.service';
 
 @Component({
@@ -11,17 +12,29 @@ import { CartService } from '../../services/cart.service';
     styleUrls: ['./cart-list.component.css'],
 })
 export class CartListComponent implements OnInit {
-    cartProducts: Array<ICartProductItem>;
-    cartData: ICartData;
-    orderBy = 'price';
-    isAsc = false;
+    cartProducts: ICartProductItem[];
+    cartData = { totalQuantity: 0, totalSum: 0 };
+    orderBy: string;
+    isAsc: boolean;
     keys = ['price', 'name', 'quantity'];
 
-    constructor(public cartService: CartService, private router: Router) {}
+    constructor(
+        public cartService: CartService,
+        public cartObservableService: CartObservableService,
+        public appSettingsService: AppSettingsService,
+        private router: Router,
+    ) {}
 
     ngOnInit(): void {
-        this.cartProducts = this.cartService.getCartProducts();
-        this.cartData = this.cartService.getCartData();
+        this.cartObservableService.getCartProducts().subscribe((cartProducts) => {
+            this.cartProducts = cartProducts;
+            this.updateCartData();
+        });
+
+        this.appSettingsService.getAppSettings().subscribe((appSettings) => {
+            this.orderBy = appSettings.orderBy;
+            this.isAsc = appSettings.isAsc;
+        });
     }
 
     onRemoveAll(): void {
@@ -29,15 +42,34 @@ export class CartListComponent implements OnInit {
     }
 
     onRemove(cartProduct: ICartProductItem): void {
-        this.cartService.removeProduct(cartProduct);
+        this.cartObservableService.removeCartProduct(cartProduct.id).subscribe((cartProducts) => {
+            this.cartProducts = cartProducts;
+            this.updateCartData();
+        });
     }
 
     onDecreaseQuantity(cartProduct: ICartProductItem): void {
-        this.cartService.decreaseQuantity(cartProduct);
+        if (cartProduct.quantity === 1) {
+            this.cartObservableService.removeCartProduct(cartProduct.id).subscribe((cartProducts) => {
+                this.cartProducts = cartProducts;
+            });
+        } else {
+            this.cartObservableService
+                .updateCartProduct({ ...cartProduct, quantity: cartProduct.quantity - 1 })
+                .subscribe((cartProducts) => {
+                    this.cartProducts = cartProducts;
+                    this.updateCartData();
+                });
+        }
     }
 
     onIncreaseQuantity(cartProduct: ICartProductItem): void {
-        this.cartService.increaseQuantity(cartProduct);
+        this.cartObservableService
+            .updateCartProduct({ ...cartProduct, quantity: cartProduct.quantity + 1 })
+            .subscribe((cartProducts) => {
+                this.cartProducts = cartProducts;
+                this.updateCartData();
+            });
     }
 
     trackByCartProducts(index: number, cartProduct: ICartProductItem): number {
@@ -46,5 +78,10 @@ export class CartListComponent implements OnInit {
 
     onOrder(): void {
         this.router.navigate(['/order']);
+    }
+
+    private updateCartData(): void {
+        this.cartData.totalQuantity = this.cartProducts.reduce((acc, item) => acc + item.quantity, 0);
+        this.cartData.totalSum = this.cartProducts.reduce((acc, item) => acc + item.price * item.quantity, 0);
     }
 }

@@ -14,6 +14,7 @@ const routes: Routes = [
         path: 'order',
         loadChildren: () => import('./orders/orders.module').then((m) => m.OrdersModule),
         canLoad: [OrdersGuard],
+        canActivate: [OrdersGuard],
     },
     {
         path: 'admin',

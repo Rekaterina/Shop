@@ -1,4 +1,4 @@
-<div class="cart-container card">
+<div *ngIf="cartProducts && orderBy" class="cart-container card">
     <div class="card-header">
         <h5 class="card-title">Cart</h5>
         <div class="sorting-container">
@@ -18,7 +18,7 @@
             (decreaseQuantity)="onDecreaseQuantity($event)"
             (increaseQuantity)="onIncreaseQuantity($event)">
         </app-cart-item>
-        <button type="button" class="btn btn-secondary" (click)="onRemoveAll()">Remove all</button>
+        <!-- <button type="button" class="btn btn-secondary" (click)="onRemoveAll()">Remove all</button> -->
     </div>
     <ng-template #elseBlock>
         <div class="card-body">
