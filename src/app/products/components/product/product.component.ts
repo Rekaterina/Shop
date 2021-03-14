@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 
 import { AdminService } from '../../../admin/services/admin.service';
 import { IProductItem } from '../../models/product.model';
-import { ProductsService } from '../../services/products.service';
 
 @Component({
     selector: 'app-product',
@@ -16,7 +15,7 @@ export class ProductComponent {
 
     @Output() buy: EventEmitter<IProductItem> = new EventEmitter<IProductItem>();
 
-    constructor(public productsService: ProductsService, private router: Router, public adminService: AdminService) {}
+    constructor(private router: Router, public adminService: AdminService) {}
 
     onBuy(product: IProductItem): void {
         this.buy.emit(product);

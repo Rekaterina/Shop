@@ -1,21 +1,38 @@
 import { Injectable } from '@angular/core';
-import { Router, CanLoad, UrlTree } from '@angular/router';
+import { CanActivate, CanLoad } from '@angular/router';
 
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
+import { mergeMap } from 'rxjs/operators';
 
-import { CartService } from '../../cart/services/cart.service';
+import { ICartProductItem } from '../../cart/models/cart-product.model';
+import { CartObservableService } from '../../cart/services/cart-observable.service';
 
 @Injectable({
     providedIn: 'root',
 })
-export class OrdersGuard implements CanLoad {
-    constructor(public cartService: CartService) {}
+export class OrdersGuard implements CanLoad, CanActivate {
+    cartProducts: ICartProductItem[];
 
-    canLoad(): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
-        if (this.cartService.isEmptyCart()) {
-            alert('Cart is empty');
-            return false;
-        }
-        return true;
+    constructor(public cartObservableService: CartObservableService) {}
+
+    canLoad(): Observable<boolean> {
+        return this.getCheck();
+    }
+
+    canActivate(): Observable<boolean> {
+        return this.getCheck();
+    }
+
+    getCheck(): Observable<boolean> {
+        return this.cartObservableService.getCartProducts().pipe(
+            mergeMap((cartProducts) => {
+                if (cartProducts.length === 0) {
+                    alert('Cart is empty');
+                    return of(false);
+                } else {
+                    return of(true);
+                }
+            }),
+        );
     }
 }

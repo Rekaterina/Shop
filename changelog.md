@@ -35,7 +35,7 @@
 - `CartService`, added `cartData` with totalQuantity and totalSum, added `increaseQuantity()`, `decreaseQuantity()` methods with `changeQuantity()`, added `removeProduct()`
 - `FirstComponent`, injected services
 
-# Task3 - Pipes
+# Task4 - Pipes
 ### Modified
 - `ProductService`, method `getProducts()`
 - `ProductListComponent`, added `async` pipe
@@ -47,4 +47,20 @@
 - `OrderByPipe`
 - `YesNoPipe`
 - `CoreModule` to provide `LocalStorageService`
+
+# Task5 - Routing
+
+### Added
+- Routing
+
+# Task6 - HttpClient
+
+### Added
+- `db.json`, `app-settings.json`
+- `CartObservableService`, `ProductsPromiseService`
+- `AppSettingsService`, interface `IAppSettings`
+- `TimingInterceptor`
+
+### Modified
+- `CartListComponent`, `ProductListComponent`, `ProductViewComponent`, `OrdersGuard`
 
