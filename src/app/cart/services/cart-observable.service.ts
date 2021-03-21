@@ -1,7 +1,7 @@
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 
-import { Observable, throwError } from 'rxjs';
+import { Observable, throwError, zip } from 'rxjs';
 import { concatMap, catchError } from 'rxjs/operators';
 
 import { ICartProductItem } from '../models/cart-product.model';
@@ -22,6 +22,18 @@ export class CartObservableService {
         const url = `${this.cartProductsUrl}/${id}`;
 
         return this.http.delete(url).pipe(
+            concatMap(() => this.getCartProducts()),
+            catchError(this.handleError),
+        );
+    }
+
+    removeCartProducts(products: ICartProductItem[]): Observable<ICartProductItem[]> {
+        return zip(
+            ...products.map((product) => {
+                const url = `${this.cartProductsUrl}/${product.id}`;
+                return this.http.delete(url);
+            }),
+        ).pipe(
             concatMap(() => this.getCartProducts()),
             catchError(this.handleError),
         );

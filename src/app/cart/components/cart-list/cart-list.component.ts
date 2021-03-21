@@ -37,8 +37,11 @@ export class CartListComponent implements OnInit {
         });
     }
 
-    onRemoveAll(): void {
-        this.cartService.removeAllProducts();
+    onRemoveAll(cartProducts: ICartProductItem[]): void {
+        this.cartObservableService.removeCartProducts(cartProducts).subscribe((cartProductsData) => {
+            this.cartProducts = cartProductsData;
+            this.updateCartData();
+        });
     }
 
     onRemove(cartProduct: ICartProductItem): void {
