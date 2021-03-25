@@ -28,6 +28,9 @@ export class CartObservableService {
     }
 
     removeCartProducts(products: ICartProductItem[]): Observable<ICartProductItem[]> {
+        // почему zip? если речь идет о запуске потоков в параллель, то merge
+        // если надо ждать завершения всех потоков, то forkJoin
+        // в даном случае не принципиально, но в общем эти операторы отличаются
         return zip(
             ...products.map((product) => {
                 const url = `${this.cartProductsUrl}/${product.id}`;
