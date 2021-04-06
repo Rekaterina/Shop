@@ -4,6 +4,10 @@ import { CanLoad, UrlTree, CanActivate, CanDeactivate, ActivatedRouteSnapshot, R
 import { Observable, of } from 'rxjs';
 import { map, catchError, take } from 'rxjs/operators';
 
+import { Store } from '@ngrx/store';
+
+import * as RouterActions from 'src/app/core/@ngrx/router/router.actions';
+
 import { IProductItem } from '../../products/models/product.model';
 import { ProductsService } from '../../products/services/products.service';
 import { EditProductComponent } from '../components/edit-product/edit-product.component';
@@ -13,7 +17,7 @@ import { AdminService } from '../services/admin.service';
     providedIn: 'root',
 })
 export class AdminGuard implements CanLoad, CanActivate, CanDeactivate<EditProductComponent> {
-    constructor(public adminService: AdminService, public productsService: ProductsService, private router: Router) {}
+    constructor(public adminService: AdminService, public productsService: ProductsService, private store: Store) {}
 
     canLoad(): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
         return this.adminService.checkAccess();
@@ -38,13 +42,21 @@ export class AdminGuard implements CanLoad, CanActivate, CanDeactivate<EditProdu
                 if (product) {
                     return product;
                 } else {
-                    this.router.navigate(['/admin/products']);
+                    this.store.dispatch(
+                        RouterActions.go({
+                            path: ['/admin/products'],
+                        }),
+                    );
                     return null;
                 }
             }),
             take(1),
             catchError(() => {
-                this.router.navigate(['/admin/products']);
+                this.store.dispatch(
+                    RouterActions.go({
+                        path: ['/admin/products'],
+                    }),
+                );
                 return of(null);
             }),
         );

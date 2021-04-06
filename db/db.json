@@ -41,39 +41,39 @@
       "image": "../../../assets/images/id3.jpg"
     }
   ],
-  "cart" : [
+  "cart": [
     {
-        "id": 1,
-        "category": "Fantasy",
-        "name": "Harry Potter and the Prisoner of Azkaban",
-        "author": "J.K. Rowling",
-        "description": "The novels chronicle the lives of a young wizard, Harry Potter, and his friends.",
-        "price": 10,
-        "isAvailable": true,
-        "image": "../../../assets/images/id0.jpg",
-        "quantity" : 1
+      "id": 1,
+      "category": "Fantasy",
+      "name": "Harry Potter and the Prisoner of Azkaban",
+      "author": "J.K. Rowling",
+      "description": "The novels chronicle the lives of a young wizard, Harry Potter, and his friends.",
+      "price": 10,
+      "isAvailable": true,
+      "image": "../../../assets/images/id0.jpg",
+      "quantity": 6
     },
     {
-        "id": 2,
-        "category": "Science fiction",
-        "name": "Cloud Atlas",
-        "author": "David Mitchell",
-        "description": "The fantastical speculative fiction book consists of six interconnected nested stories.",
-        "price": 15,
-        "isAvailable": true,
-        "image": "../../../assets/images/id1.jpg",
-        "quantity" : 1
+      "id": 2,
+      "category": "Science fiction",
+      "name": "Cloud Atlas",
+      "author": "David Mitchell",
+      "description": "The fantastical speculative fiction book consists of six interconnected nested stories.",
+      "price": 15,
+      "isAvailable": true,
+      "image": "../../../assets/images/id1.jpg",
+      "quantity": 2
     },
     {
-        "id": 3,
-        "category": "Novel",
-        "name": "The Adventures of Tom Sawyer",
-        "author": "Mark Twain",
-        "description": "The novel about a young boy growing up along the Mississippi River.",
-        "price": 12,
-        "isAvailable": true,
-        "image": "../../../assets/images/id2.jpg",
-        "quantity" : 1
+      "id": 3,
+      "category": "Novel",
+      "name": "The Adventures of Tom Sawyer",
+      "author": "Mark Twain",
+      "description": "The novel about a young boy growing up along the Mississippi River.",
+      "price": 12,
+      "isAvailable": true,
+      "image": "../../../assets/images/id2.jpg",
+      "quantity": 2
     }
   ]
 }

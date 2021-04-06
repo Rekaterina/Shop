@@ -11,6 +11,9 @@ import { FirstComponent } from './first/components/first/first.component';
 import { CoreModule } from './core/core.module';
 import { LayoutModule } from './layout/layout.module';
 import { httpInterceptorProviders } from './core/interceptors';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '../environments/environment';
+import { RootStoreModule } from './core/@ngrx/root-store.module';
 
 @NgModule({
     declarations: [AppComponent, FirstComponent],
@@ -22,7 +25,9 @@ import { httpInterceptorProviders } from './core/interceptors';
         CoreModule,
         LayoutModule,
         HttpClientModule,
+        RootStoreModule,
         AppRoutingModule,
+        StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
     ],
     providers: [httpInterceptorProviders],
     bootstrap: [AppComponent],

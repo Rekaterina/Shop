@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+
+import { Store } from '@ngrx/store';
+
+import { AppState, getProductByUrl } from 'src/app/core/@ngrx';
+import * as RouterActions from 'src/app/core/@ngrx/router/router.actions';
 
 import { CartObservableService } from '../../../cart/services/cart-observable.service';
 import { ICartProductItem } from '../../../cart/models/cart-product.model';
@@ -12,21 +16,19 @@ import { ProductsPromiseService } from '../../services/products-promise.service'
     styleUrls: ['./product-view.component.css'],
 })
 export class ProductViewComponent implements OnInit {
-    product: IProductItem;
+    product: IProductItem | undefined;
     cartProducts: ICartProductItem[];
 
     constructor(
-        private route: ActivatedRoute,
-        private router: Router,
+        private store: Store<AppState>,
         public productsPromiseService: ProductsPromiseService,
         public cartObservableService: CartObservableService,
     ) {}
 
     ngOnInit(): void {
-        this.productsPromiseService
-            .getProduct(+this.route.snapshot.params.id)
-            .then((product) => (this.product = product))
-            .catch((err) => console.log(err));
+        this.store.select(getProductByUrl).subscribe((product) => {
+            this.product = product;
+        });
         this.cartObservableService.getCartProducts().subscribe((cartProducts) => {
             this.cartProducts = cartProducts;
         });
@@ -47,7 +49,8 @@ export class ProductViewComponent implements OnInit {
             });
         }
     }
+
     onBack(): void {
-        this.router.navigate(['/products-list']);
+        this.store.dispatch(RouterActions.back());
     }
 }

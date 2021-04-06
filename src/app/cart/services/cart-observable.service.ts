@@ -1,7 +1,7 @@
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 
-import { Observable, throwError, zip } from 'rxjs';
+import { Observable, throwError, merge } from 'rxjs';
 import { concatMap, catchError } from 'rxjs/operators';
 
 import { ICartProductItem } from '../models/cart-product.model';
@@ -28,7 +28,7 @@ export class CartObservableService {
     }
 
     removeCartProducts(products: ICartProductItem[]): Observable<ICartProductItem[]> {
-        return zip(
+        return merge(
             ...products.map((product) => {
                 const url = `${this.cartProductsUrl}/${product.id}`;
                 return this.http.delete(url);

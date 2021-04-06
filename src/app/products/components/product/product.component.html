@@ -29,6 +29,13 @@
                 (click)="onEdit(product.id)">
                     Edit
             </button>
+            <button
+                *ngIf="adminService.isAdmin()" 
+                type="button"
+                class="btn btn-secondary"
+                (click)="onRemove(product)">
+                    Remove
+            </button>
         </div>
     </div>
 </div>

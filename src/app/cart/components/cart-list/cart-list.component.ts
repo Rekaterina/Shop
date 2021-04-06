@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+
+import { Store } from '@ngrx/store';
+
+import * as RouterActions from 'src/app/core/@ngrx/router/router.actions';
 
 import { AppSettingsService } from '../../../core/services/app-settings.service';
 import { ICartProductItem } from '../../models/cart-product.model';
@@ -22,7 +25,7 @@ export class CartListComponent implements OnInit {
         public cartService: CartService,
         public cartObservableService: CartObservableService,
         public appSettingsService: AppSettingsService,
-        private router: Router,
+        private store: Store,
     ) {}
 
     ngOnInit(): void {
@@ -80,7 +83,11 @@ export class CartListComponent implements OnInit {
     }
 
     onOrder(): void {
-        this.router.navigate(['/order']);
+        this.store.dispatch(
+            RouterActions.go({
+                path: ['/order'],
+            }),
+        );
     }
 
     private updateCartData(): void {

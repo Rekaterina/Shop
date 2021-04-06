@@ -1,11 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
+import { Observable } from 'rxjs';
+
+import { Store } from '@ngrx/store';
+
+import { selectProductsData, selectProductsError, AppState } from 'src/app/core/@ngrx';
+import * as RouterActions from 'src/app/core/@ngrx/router/router.actions';
+import * as ProductsActions from 'src/app/core/@ngrx/products/products.actions';
+
 import { ICartProductItem } from '../../../cart/models/cart-product.model';
 import { CartObservableService } from '../../../cart/services/cart-observable.service';
 import { AdminService } from '../../../admin/services/admin.service';
 import { IProductItem } from '../../models/product.model';
-import { ProductsPromiseService } from '../../services/products-promise.service';
 
 @Component({
     selector: 'app-product-list',
@@ -17,16 +24,21 @@ export class ProductListComponent implements OnInit {
     cartProducts: ICartProductItem[];
     selectedId: number;
     isShowAddProductButton: boolean;
+    products$: Observable<ReadonlyArray<IProductItem>>;
+    productsError$: Observable<Error | string>;
 
     constructor(
-        public productsPromiseService: ProductsPromiseService,
         public adminService: AdminService,
         private router: Router,
         public cartObservableService: CartObservableService,
+        private store: Store<AppState>,
     ) {}
 
     ngOnInit(): void {
-        this.products = this.productsPromiseService.getProducts();
+        this.products$ = this.store.select(selectProductsData);
+        this.productsError$ = this.store.select(selectProductsError);
+        this.store.dispatch(ProductsActions.getProducts());
+
         this.cartObservableService.getCartProducts().subscribe((cartProducts) => {
             this.cartProducts = cartProducts;
         });
@@ -51,7 +63,15 @@ export class ProductListComponent implements OnInit {
     }
 
     onAddProduct(): void {
-        const link = ['/admin/products/add'];
-        this.router.navigate(link);
+        this.store.dispatch(
+            RouterActions.go({
+                path: ['/admin/products/add'],
+            }),
+        );
+    }
+
+    onRemoveProduct(product: IProductItem): void {
+        const productToRemove: IProductItem = { ...product };
+        this.store.dispatch(ProductsActions.deleteProduct({ product: productToRemove }));
     }
 }
