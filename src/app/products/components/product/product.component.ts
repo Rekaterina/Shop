@@ -1,5 +1,8 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { Router } from '@angular/router';
+
+import { Store } from '@ngrx/store';
+
+import * as RouterActions from 'src/app/core/@ngrx/router/router.actions';
 
 import { AdminService } from '../../../admin/services/admin.service';
 import { IProductItem } from '../../models/product.model';
@@ -14,20 +17,31 @@ export class ProductComponent {
     @Input() product: IProductItem;
 
     @Output() buy: EventEmitter<IProductItem> = new EventEmitter<IProductItem>();
+    @Output() remove: EventEmitter<IProductItem> = new EventEmitter<IProductItem>();
 
-    constructor(private router: Router, public adminService: AdminService) {}
+    constructor(public adminService: AdminService, private store: Store) {}
 
     onBuy(product: IProductItem): void {
         this.buy.emit(product);
     }
 
+    onRemove(product: IProductItem): void {
+        this.remove.emit(product);
+    }
+
     onSeeProductDetails(id: number): void {
-        const link = ['/product', id];
-        this.router.navigate(link);
+        this.store.dispatch(
+            RouterActions.go({
+                path: ['/product', id],
+            }),
+        );
     }
 
     onEdit(id: number): void {
-        const link = ['/admin/product/edit', id];
-        this.router.navigate(link);
+        this.store.dispatch(
+            RouterActions.go({
+                path: ['/admin/product/edit', id],
+            }),
+        );
     }
 }
