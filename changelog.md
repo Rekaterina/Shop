@@ -67,7 +67,7 @@
 # Task7 - NgRx
 
 ### Added
-- `@ngrx/store, @ngrx/effects` fot Products
+- `@ngrx/store, @ngrx/effects` fot Products // for?
 - `@ngrx/router-store`, implement navigation
 
 ### Modified
