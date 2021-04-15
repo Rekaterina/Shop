@@ -1,0 +1,16 @@
+.add-phone {
+    margin-bottom: 15px;
+}
+
+.phone-container {
+    display: flex;
+}
+
+.btn-danger {
+    margin-left: 10px;
+}
+
+.error-message {
+    color: red;
+    font-size: 12px;
+}

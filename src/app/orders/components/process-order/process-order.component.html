@@ -1,3 +1,110 @@
-<p>
-    process-order works!
-</p>
+<form
+    [formGroup]="userForm">
+    <fieldset>
+        <legend>Order</legend>
+
+        <div class="form-group">
+            <label class="form-control-label" for="firstNameId">First Name</label>
+            <input 
+                [ngClass]="{'is-invalid': validationMessagesMap.get('firstName')!.message }"
+                (blur)="onBlur($event)" 
+                class="form-control"
+                id="firstNameId"
+                type="text"
+                placeholder="First Name (required)"
+                formControlName="firstName">
+
+                <span class="error-message" *ngIf="validationMessagesMap.get('firstName')!.message">
+                    {{validationMessagesMap.get('firstName')!.message}}
+                </span>
+              
+        </div>
+        
+        <div class="form-group">
+            <label class="form-control-label" for="lastNameId">Last Name</label>
+            <input 
+                class="form-control"
+                id="lastNameId"
+                type="text"
+                placeholder="Last Name"
+                formControlName="lastName">
+        </div>
+
+        <div class="form-group">
+            <label class="form-control-label" for="inputValid">Email</label>
+            <input 
+                [ngClass]="{'is-invalid': validationMessagesMap.get('email')!.message }"
+                (blur)="onBlur($event)" 
+                class="form-control"
+                id="emailId"
+                type="email"
+                placeholder="Email (required)"
+                formControlName="email"
+                appEmailValidator>
+
+                <span class="error-message" *ngIf="validationMessagesMap.get('email')!.message">
+                    {{validationMessagesMap.get('email')!.message}}
+                </span>
+        </div>
+
+        <div formArrayName="phones">
+            <div
+                *ngFor="let phone of phones.controls; let i = index"
+                [formGroupName]="i"
+            >
+                <div class="form-group">
+                    <label class="form-control-label" for="phoneId">Phone</label>
+                    <div class="phone-container">
+                        <input 
+                            class="form-control"
+                            id="{{ 'phoneId' + i }}"
+                            type="tel"
+                            placeholder="Phone">
+                        <button class="btn btn-danger" (click)="onRemovePhone(i)">
+                            X
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <button
+            class="btn btn-outline-primary add-phone"
+            type="button"
+            (click)="onAddPhone()">
+                Add Another Phone
+        </button>
+
+        <div class="form-group custom-control custom-checkbox">
+            <input 
+                type="checkbox" 
+                class="custom-control-input" 
+                id="pickupId"
+                formControlName="pickup">
+            <label class="custom-control-label" for="pickupId">Pickup</label>
+        </div>
+
+        <div class="form-group" *ngIf="!pickup?.value">
+            <label for="addressId">Address</label>
+            <input 
+                [ngClass]="{'is-invalid': validationMessagesMap.get('address')!.message }"
+                (blur)="onBlur($event)" 
+                class="form-control" 
+                id="addressId"
+                placeholder="{{ addressPlaceholder}}"
+                formControlName="address">
+
+                <span class="error-message" *ngIf="validationMessagesMap.get('address')!.message">
+                    {{validationMessagesMap.get('address')!.message}}
+                </span>
+        </div>
+
+        <button 
+            class="btn btn-primary"
+            type="submit"
+            [disabled]="!userForm.valid">
+            Save
+        </button>
+    </fieldset>
+</form>
+
